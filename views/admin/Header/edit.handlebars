@@ -1,0 +1,38 @@
+<div class="container text-center ">
+    <h3 class="">Welcome To Admin Dashboard</h3>
+    <ul class="category_list">
+        {{#each headers}}
+        <li>
+            <a href="">
+                <div class="inner_category">
+                    <img src="/images/{{file}}" />
+                </div>
+                <h3>{{title}}</h3>
+            </a>
+            <a href="/admin/header/edit/{{_id}}" class="btn btn-sm btn-warning mr-2" role="button">Edit</a>
+            <form action="/admin/header/delete/{{_id}}?newMethod=DELETE" method="post">
+                <button class="btn btn-sm btn-danger" type="submit">Delete Header</button>
+            </form>
+        </li>
+
+        {{/each}}
+    </ul>
+
+    <form action="/admin/header/edit/{{header._id}}" method="post" enctype="multipart/form-data">
+
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" name="title" id="title" value={{header.title}}
+                placeholder="Enter The Title">
+        </div>
+        <label for="Image" class="category_list">Your Image</label>
+        <img src="/images/{{header.file}}" width="120" height="150" />
+        <div class="form-group">
+            <label for="file">File Upload</label>
+            <input type="file" class="form-control" id="file" name="uploadedNewFile"
+                accept="image/jpeg, image/jpg, image/png, image/bmp">
+        </div>
+        <button class="btn btn-outline-success btn-lg" type="submit">Update Header Element</button>
+
+    </form>
+</div>

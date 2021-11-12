@@ -1,0 +1,69 @@
+<div class="container">
+
+
+    <h3 class="alert alert-dark p-3 text-dark text-center">All Buttons </h3>
+
+
+    <div class="row">
+        <div class="col-6 mx-auto">
+            <table class="table table-bordered text-center border-success text-white">
+                <thead class="bg-primary">
+                    <tr>
+                        <th>Title</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody class="table-hover bg-dark button-list">
+                    {{#each buttons}}
+                    <tr>
+
+                        <td><button onclick="window.location.href='{{btn_link}}'" class="btn btn-sm"
+                                style="color:{{btn_text_clr}}; background-color: {{btn_clr}}; font-size:{{btn_text_size}}; font-family:{{btn_font_family}};">{{title}}
+                            </button></td>
+                        <td class="d-flex justify-content-center">
+                            <a href="/admin/button/edit/{{_id}}" class="btn btn-sm btn-warning mr-2"
+                                role="button">Edit</a>
+                            <form action="/admin/button/delete/{{_id}}?newMethod=DELETE" method="post">
+                                <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row p-4">
+        <div class="col-md-8">
+            <form action="/admin/button/edit/{{button._id}}" method="POST">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" id="button-title" name="title" value="{{button.title}}">
+                    <label for="btnclr">Button Color</label>
+                    <input type="text" class="form-control" id="button-color" name="color" value="{{button.btn_clr}}">
+                    <label for="btntextclr">Button Text Color</label>
+                    <input type="text" class="form-control" id="button-text-color" name="btn_text_color"
+                        placeholder="Enter Button text size" value="{{button.btn_text_clr}}">
+                    <label for="btntextsize">Button Text size</label>
+                    <input type="text" class="form-control" id="button-text-size" name="btn_text_size"
+                        placeholder="Enter Button text size" value="{{button.btn_text_size}}">
+                    <label for="btnfont">Button Font Family</label>
+                    <input type="text" class="form-control" id="button-font-family" name="btn_font_family"
+                        placeholder="Enter Button Font Family" value="{{button.btn_font_family}}">
+                    <label for="btnlink">Button Link</label>
+                    <input type="text" class="form-control" id="button-link" name="btn_link"
+                        placeholder="Enter Button Link" value="{{button.btn_link}}">
+                    <input type="hidden" class="form-control" id="button-id" name="id" value="{{button._id}}">
+                </div>
+                <button class="btn btn-outline-warning btn-lg" id="update-button">Update
+                    button</button>
+            </form>
+        </div>
+    </div>
+
+
+</div>

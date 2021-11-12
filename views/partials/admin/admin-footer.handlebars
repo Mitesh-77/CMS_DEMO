@@ -1,0 +1,198 @@
+<footer class="sticky-footer">
+    <div class="container">
+        <div class="text-center">
+            <small>Copyright © Your Website 2017</small>
+        </div>
+    </div>
+</footer>
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fa fa-angle-up"></i>
+</a>
+<!-- Logout Modal-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="login.html">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Bootstrap core JavaScript-->
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Core plugin JavaScript-->
+<script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="/js/sb-admin.min.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+        setTimeout(function () {
+            $('.auto-hide').slideUp(300);
+        }, 2000);
+
+
+
+        $("#headereditbtn").on('dblclick', function (e) {
+            e.preventDefault()
+            document.getElementById("headereditbtn").contentEditable = true
+        })
+
+        $("#create-category-button").on('click', function (e) {
+            e.preventDefault();
+
+            const data = {
+                "title": $("#category-title").val(),
+                "txt_size": $("#category-txt-size").val(),
+                "txt_font_family": $("#category-txt-font-family").val(),
+                "txt_color": $("#category-txt-color").val()
+            }
+
+            $.ajax({
+                url: '/admin/category/create',
+                type: 'POST',
+                data: data,
+                success: function (response) {
+
+                    const html = `<tr>
+                        <td style="font-size: ${response.txt_size}; font-family:${response.txt_font_family}">${response.title}</td>
+                        <td class="d-flex justify-content-center">
+                            <a href="/admin/category/edit/${response._id}" class="btn btn-sm btn-warning mr-2">Edit</a>
+                            <form action="/admin/category/${response._id}?newMethod=DELETE" method="post">
+                                <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>`;
+
+
+                    $(".category-list").append(html);
+
+                }
+            });
+
+            $("#category-title").val('');
+        });
+
+
+        $("#update-category-button").on('click', function (e) {
+            e.preventDefault();
+            const data = {
+                "title": $("#category-title").val(),
+                "txt_size": $("#category-txt-size").val(),
+                "txt_font_family": $("#category-txt-font-family").val(),
+                "txt_color": $("#category-txt-color").val()
+            };
+            const id = $("#category-id").val();
+            console.log(data)
+            $.ajax({
+                url: `/admin/category/edit/${id}`,
+                type: 'POST',
+                data: data,
+                success: function (response) {
+                    window.location.href = response.url;
+                }
+            });
+        });
+
+
+        $("#create-furnished-button").on('click', function (e) {
+            e.preventDefault();
+
+            let data = {
+                "title": $("#Furnished-title").val(),
+                "number": $("#Furnished-number").val(),
+                "txt_size": $("#Furnished-txt-size").val(),
+                "txt_font_family": $("#Furnished-txt-font-family").val(),
+                "txt_color": $("#Furnished-txt-color").val()
+            }
+
+            $.ajax({
+                url: '/admin/furnished/create',
+                type: 'POST',
+                data: data,
+                success: function (response) {
+
+                    const html = `<tr>
+                        <td>${response.number}</td>
+                        <td>${response.title}</td>
+                        <td class="d-flex justify-content-center">
+                            <a href="/admin/furnished/edit/${response._id}" class="btn btn-sm btn-warning mr-2">Edit</a>
+                            <form action="/admin/furnished/${response._id}?newMethod=DELETE" method="post">
+                                <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>`;
+
+
+                    $(".Furnished-list").append(html);
+
+                }
+            });
+
+            $("#Furnished-title").val('');
+            $("#Furnished-number").val('');
+        });
+
+        $("#update-Furnished-button").on('click', function (e) {
+            e.preventDefault();
+            const id = $("#Furnished-id").val()
+            let data = {
+                "title": $("#Furnished-title").val(),
+                "number": $("#Furnished-number").val(),
+                "txt_size": $("#Furnished-txt-size").val(),
+                "txt_font_family": $("#Furnished-txt-font-family").val(),
+                "txt_color": $("#Furnished-txt-color").val()
+            }
+            $.ajax({
+                url: `/admin/furnished/edit/${id}`,
+                type: 'POST',
+                data: data,
+                success: function (response) {
+                    window.location.href = response.url;
+                }
+            });
+        });
+
+    });
+
+
+
+    $('#create-schema').on('click', function (e) {
+        const model = $("#model").val()
+        const title = $("#schema-title").val().toLowerCase()
+        const type = $("#schema-type").val()
+        const required = document.getElementsByName("required") == 'true' ? [req.body.required] : []
+        const data = { modelSchema = { type: object, properties: { [title]: { type: type } }, required: required, additionalProperties=false } }
+        console.log(data)
+        e.preventDefault();
+        $.ajax({
+            url: `/model/update/${model}`,
+            type: 'PUT',
+            data: data,
+            success: function (response) {
+                window.location.href = response.url;
+            }
+        });
+    });
+
+    });
+
+
+    document.getElementById('model').onchange = function () {
+        document.getElementById('Form_id').action = '/model/update/' + this.value + '?newMethod=PUT';
+    }
+
+</script>

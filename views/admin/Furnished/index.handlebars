@@ -1,0 +1,74 @@
+<div class="container">
+
+
+    <h3 class="alert alert-dark p-3 text-dark text-center">All Furnished Types </h3>
+
+
+    <div class="row">
+        <div class="col-6 mx-auto">
+            <table class="table table-bordered text-center border-success text-white">
+                <thead class="bg-primary">
+                    <tr>
+                        <th>Number</th>
+                        <th>Type</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody class="table-hover bg-dark Furnished-list">
+                    {{#each ftypes}}
+                    <tr>
+
+                        <td style="font-size: {{txt_size}}; font-family:{{txt_font_family}}; color:{{txt_color}};">
+                            {{number}}</td>
+                        <td style="font-size: {{txt_size}}; font-family:{{txt_font_family}}; color:{{txt_color}};">
+                            {{title}}</td>
+                        <td class="d-flex justify-content-center">
+                            <a href="/admin/furnished/edit/{{_id}}" class="btn btn-sm btn-warning mr-2"
+                                role="button">Edit</a>
+                            <form action="/admin/furnished/delete/{{_id}}?newMethod=DELETE" method="post">
+                                <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row p-4">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label for="number">Number</label>
+                <input type="number" class="form-control" id="Furnished-number" name="number"
+                    placeholder="Enter furnished Number">
+            </div>
+            <div class="form-group">
+                <label for="title">Furnished Type</label>
+                <input type="text" class="form-control" id="Furnished-title" name="title" placeholder="Enter Ftype">
+            </div>
+            <div class="form-group">
+                <label for="Text Color">Text Color</label>
+                <input type="text" class="form-control" id="Furnished-txt-color" name="color"
+                    placeholder="Enter Text Color">
+            </div>
+            <div class="form-group">
+                <label for="Text Size">Text Size</label>
+                <input type="text" class="form-control" id="Furnished-txt-size" name="txt_size"
+                    placeholder="Enter Text Size">
+            </div>
+            <div class="form-group">
+                <label for="Text FontFamily">Text Font Family</label>
+                <input type="text" class="form-control" id="Furnished-txt-font-family" name="txt_font_family"
+                    placeholder="Enter Text Font Family">
+            </div>
+            <button type="submit" class="btn btn-outline-success btn-lg" id="create-furnished-button">Create
+                Furnished Type</button>
+        </div>
+    </div>
+
+
+</div>
